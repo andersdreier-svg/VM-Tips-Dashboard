@@ -2529,5 +2529,500 @@
       }
     });
   </script>
+  <script>
+/* =========================================================
+   VM 2026: STATISK SENDEPLAN + NEDTÆLLING
+   ---------------------------------------------------------
+   Indsæt denne blok lige før </body>.
+
+   Den kræver IKKE ændringer i Cloudflare Worker.
+   Den bruger dansk tid direkte i ISO-format:
+   2026-06-12T21:00:00+02:00
+
+   Hvis din eksisterende kode allerede bruger DATA.matches,
+   bliver kampene også beriget med:
+   match.kickoff
+   match.date
+   match.broadcast
+   match.tvChannel
+   ========================================================= */
+
+(() => {
+  const VM2026_STATIC_DK_SCHEDULE = [
+    { no: 1,  kickoff: "2026-06-11T21:00:00+02:00", channel: "TV 2" },
+    { no: 2,  kickoff: "2026-06-12T04:00:00+02:00", channel: "TV 2" },
+    { no: 3,  kickoff: "2026-06-12T21:00:00+02:00", channel: "DR" },
+    { no: 4,  kickoff: "2026-06-13T03:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 5,  kickoff: "2026-06-13T21:00:00+02:00", channel: "DR" },
+    { no: 6,  kickoff: "2026-06-14T00:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 7,  kickoff: "2026-06-14T03:00:00+02:00", channel: "DR" },
+    { no: 8,  kickoff: "2026-06-14T06:00:00+02:00", channel: "DR" },
+    { no: 9,  kickoff: "2026-06-14T19:00:00+02:00", channel: "DR" },
+    { no: 10, kickoff: "2026-06-14T22:00:00+02:00", channel: "TV 2" },
+    { no: 11, kickoff: "2026-06-15T01:00:00+02:00", channel: "DR" },
+    { no: 12, kickoff: "2026-06-15T04:00:00+02:00", channel: "DR" },
+    { no: 13, kickoff: "2026-06-15T18:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 14, kickoff: "2026-06-15T21:00:00+02:00", channel: "TV 2" },
+    { no: 15, kickoff: "2026-06-16T00:00:00+02:00", channel: "DR" },
+    { no: 16, kickoff: "2026-06-16T03:00:00+02:00", channel: "DR" },
+    { no: 17, kickoff: "2026-06-16T21:00:00+02:00", channel: "DR" },
+    { no: 18, kickoff: "2026-06-17T00:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 19, kickoff: "2026-06-17T03:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 20, kickoff: "2026-06-17T06:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 21, kickoff: "2026-06-17T19:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 22, kickoff: "2026-06-17T22:00:00+02:00", channel: "TV 2" },
+    { no: 23, kickoff: "2026-06-18T01:00:00+02:00", channel: "DR" },
+    { no: 24, kickoff: "2026-06-18T04:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 25, kickoff: "2026-06-18T18:00:00+02:00", channel: "DR" },
+    { no: 26, kickoff: "2026-06-18T21:00:00+02:00", channel: "DR" },
+    { no: 27, kickoff: "2026-06-19T00:00:00+02:00", channel: "DR" },
+    { no: 28, kickoff: "2026-06-19T03:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 29, kickoff: "2026-06-19T21:00:00+02:00", channel: "DR" },
+    { no: 30, kickoff: "2026-06-20T00:00:00+02:00", channel: "DR" },
+    { no: 31, kickoff: "2026-06-20T03:00:00+02:00", channel: "DR" },
+    { no: 32, kickoff: "2026-06-20T06:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 33, kickoff: "2026-06-20T19:00:00+02:00", channel: "DR" },
+    { no: 34, kickoff: "2026-06-20T22:00:00+02:00", channel: "DR" },
+    { no: 35, kickoff: "2026-06-21T02:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 36, kickoff: "2026-06-21T06:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 37, kickoff: "2026-06-21T18:00:00+02:00", channel: "TV 2" },
+    { no: 38, kickoff: "2026-06-21T21:00:00+02:00", channel: "DR" },
+    { no: 39, kickoff: "2026-06-22T00:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 40, kickoff: "2026-06-22T03:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 41, kickoff: "2026-06-22T19:00:00+02:00", channel: "TV 2" },
+    { no: 42, kickoff: "2026-06-22T23:00:00+02:00", channel: "DR" },
+    { no: 43, kickoff: "2026-06-23T02:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 44, kickoff: "2026-06-23T05:00:00+02:00", channel: "DR" },
+    { no: 45, kickoff: "2026-06-23T19:00:00+02:00", channel: "DR" },
+    { no: 46, kickoff: "2026-06-23T22:00:00+02:00", channel: "TV 2" },
+    { no: 47, kickoff: "2026-06-24T01:00:00+02:00", channel: "DR" },
+    { no: 48, kickoff: "2026-06-24T04:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 49, kickoff: "2026-06-24T21:00:00+02:00", channel: "DR" },
+    { no: 50, kickoff: "2026-06-24T21:00:00+02:00", channel: "DR" },
+    { no: 51, kickoff: "2026-06-25T00:00:00+02:00", channel: "DR" },
+    { no: 52, kickoff: "2026-06-25T00:00:00+02:00", channel: "DR" },
+    { no: 53, kickoff: "2026-06-25T03:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 54, kickoff: "2026-06-25T03:00:00+02:00", channel: "TV 2" },
+    { no: 55, kickoff: "2026-06-25T22:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 56, kickoff: "2026-06-25T22:00:00+02:00", channel: "TV 2" },
+    { no: 57, kickoff: "2026-06-26T01:00:00+02:00", channel: "DR" },
+    { no: 58, kickoff: "2026-06-26T01:00:00+02:00", channel: "DR" },
+    { no: 59, kickoff: "2026-06-26T04:00:00+02:00", channel: "DR" },
+    { no: 60, kickoff: "2026-06-26T04:00:00+02:00", channel: "DR" },
+    { no: 61, kickoff: "2026-06-26T21:00:00+02:00", channel: "DR" },
+    { no: 62, kickoff: "2026-06-26T21:00:00+02:00", channel: "DR" },
+    { no: 63, kickoff: "2026-06-27T02:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 64, kickoff: "2026-06-27T02:00:00+02:00", channel: "TV 2" },
+    { no: 65, kickoff: "2026-06-27T05:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 66, kickoff: "2026-06-27T05:00:00+02:00", channel: "TV 2" },
+    { no: 67, kickoff: "2026-06-27T23:00:00+02:00", channel: "TV 2" },
+    { no: 68, kickoff: "2026-06-27T23:00:00+02:00", channel: "TV 2 Sport X" },
+    { no: 69, kickoff: "2026-06-28T01:30:00+02:00", channel: "TV 2" },
+    { no: 70, kickoff: "2026-06-28T01:30:00+02:00", channel: "TV 2 Sport X" },
+    { no: 71, kickoff: "2026-06-28T04:00:00+02:00", channel: "DR" },
+    { no: 72, kickoff: "2026-06-28T04:00:00+02:00", channel: "DR" }
+  ].map(item => ({
+    ...item,
+    streaming: item.channel.startsWith("DR") ? "DRTV" : "TV 2 Play",
+    source: "Statisk DR/TV 2-sendeplan, hentet 12. juni 2026"
+  }));
+
+  window.VM2026_STATIC_DK_SCHEDULE = VM2026_STATIC_DK_SCHEDULE;
+
+  function getDashboardData() {
+    try {
+      if (typeof DATA !== "undefined" && DATA && Array.isArray(DATA.matches)) return DATA;
+    } catch (_) {}
+    if (window.DATA && Array.isArray(window.DATA.matches)) return window.DATA;
+    return null;
+  }
+
+  function htmlEscape(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function addStaticScheduleCss() {
+    if (document.getElementById("vm2026-static-schedule-css")) return;
+
+    const style = document.createElement("style");
+    style.id = "vm2026-static-schedule-css";
+    style.textContent = `
+      .static-next-match-panel {
+        margin: 18px 0;
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 24px;
+        background: linear-gradient(135deg, rgba(15,23,42,0.96), rgba(30,41,59,0.88));
+        box-shadow: 0 18px 40px rgba(0,0,0,0.22);
+        padding: 18px;
+      }
+
+      .static-next-match-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.8fr);
+        gap: 16px;
+        align-items: stretch;
+      }
+
+      .static-next-kicker {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(226,232,240,0.68);
+        margin-bottom: 8px;
+      }
+
+      .static-next-title {
+        font-size: clamp(24px, 4vw, 38px);
+        font-weight: 950;
+        color: #f8fafc;
+        margin: 0 0 8px;
+      }
+
+      .static-next-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+        color: rgba(226,232,240,0.78);
+        font-weight: 800;
+      }
+
+      .static-tv-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(250,204,21,0.14);
+        border: 1px solid rgba(250,204,21,0.28);
+        color: #fef3c7;
+        font-weight: 950;
+      }
+
+      .static-stream-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        background: rgba(56,189,248,0.12);
+        border: 1px solid rgba(56,189,248,0.24);
+        color: #bae6fd;
+        font-weight: 900;
+      }
+
+      .static-countdown-box {
+        border-radius: 20px;
+        background: rgba(2,6,23,0.40);
+        border: 1px solid rgba(255,255,255,0.10);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 18px;
+        min-height: 140px;
+      }
+
+      .static-countdown-clock {
+        font-size: clamp(30px, 5vw, 48px);
+        font-weight: 1000;
+        line-height: 1;
+        color: #ffffff;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.04em;
+      }
+
+      .static-countdown-note {
+        margin-top: 8px;
+        color: rgba(226,232,240,0.68);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      @media (max-width: 760px) {
+        .static-next-match-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function applyStaticScheduleToData() {
+    const data = getDashboardData();
+    if (!data) return false;
+
+    const scheduleByNo = new Map(VM2026_STATIC_DK_SCHEDULE.map(item => [item.no, item]));
+
+    data.matches.forEach((match, index) => {
+      const matchNo = Number(match.no || index + 1);
+      const schedule = scheduleByNo.get(matchNo);
+      if (!schedule) return;
+
+      match.kickoff = schedule.kickoff;
+      match.date = schedule.kickoff;
+      match.tvChannel = schedule.channel;
+      match.broadcast = {
+        channel: schedule.channel,
+        streaming: schedule.streaming,
+        source: schedule.source
+      };
+    });
+
+    return true;
+  }
+
+  function formatDanishKickoff(isoString) {
+    const date = new Date(isoString);
+    return new Intl.DateTimeFormat("da-DK", {
+      timeZone: "Europe/Copenhagen",
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit"
+    }).format(date);
+  }
+
+  function formatCountdown(ms) {
+    if (ms <= 0) return "00:00:00";
+
+    const totalSeconds = Math.floor(ms / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const pad = value => String(value).padStart(2, "0");
+
+    if (days > 0) {
+      return `${days}d ${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    }
+
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+  }
+
+  function getMatchTitle(match) {
+    if (!match) return "Ukendt kamp";
+    if (match.title) return match.title;
+    if (match.home && match.away) return `${match.home} - ${match.away}`;
+    return "Ukendt kamp";
+  }
+
+  function findNextStaticMatch() {
+    const data = getDashboardData();
+    if (!data) return null;
+
+    const now = Date.now();
+
+    /*
+      En kamp betragtes som relevant fra før kickoff og indtil
+      ca. 3 timer efter kickoff. Det gør, at boksen kan vise
+      “Live nu”, hvis kampen er i gang.
+    */
+    const liveWindowMs = 3 * 60 * 60 * 1000;
+
+    return data.matches
+      .map((match, index) => {
+        const matchNo = Number(match.no || index + 1);
+        const schedule = VM2026_STATIC_DK_SCHEDULE.find(item => item.no === matchNo);
+        if (!schedule) return null;
+
+        const kickoffMs = new Date(schedule.kickoff).getTime();
+        return {
+          index,
+          matchNo,
+          match,
+          schedule,
+          kickoffMs,
+          isLive: kickoffMs <= now && now < kickoffMs + liveWindowMs
+        };
+      })
+      .filter(item => item && item.kickoffMs + liveWindowMs > now)
+      .sort((a, b) => a.kickoffMs - b.kickoffMs)[0] || null;
+  }
+
+  function ensureNextMatchContainer() {
+    /*
+      Hvis din eksisterende kode allerede har et panel med id
+      nextMatchCountdownPanel, bruger vi det. Ellers opretter vi
+      en ny sektion automatisk.
+    */
+    const existingPanel = document.getElementById("nextMatchCountdownPanel");
+    if (existingPanel) return existingPanel;
+
+    let section = document.getElementById("staticNextMatchPanel");
+    if (!section) {
+      section = document.createElement("section");
+      section.id = "staticNextMatchPanel";
+      section.className = "static-next-match-panel";
+      section.innerHTML = `<div id="staticNextMatchContent"></div>`;
+
+      const main = document.querySelector("main");
+      const leaderboard = document.getElementById("leaderboard");
+      const firstPanel = document.querySelector(".panel");
+
+      if (leaderboard && leaderboard.parentNode) {
+        leaderboard.parentNode.insertBefore(section, leaderboard);
+      } else if (main) {
+        main.insertBefore(section, main.firstElementChild);
+      } else if (firstPanel && firstPanel.parentNode) {
+        firstPanel.parentNode.insertBefore(section, firstPanel);
+      } else {
+        document.body.insertBefore(section, document.body.firstChild);
+      }
+    }
+
+    return document.getElementById("staticNextMatchContent");
+  }
+
+  function renderStaticNextMatchCountdown() {
+    applyStaticScheduleToData();
+    addStaticScheduleCss();
+
+    const target = ensureNextMatchContainer();
+    if (!target) return;
+
+    const next = findNextStaticMatch();
+
+    if (!next) {
+      target.innerHTML = `
+        <div class="static-next-match-grid">
+          <div>
+            <div class="static-next-kicker">Næste kamp</div>
+            <h2 class="static-next-title">Gruppespillet er færdigt</h2>
+            <div class="static-next-meta">
+              <span class="static-tv-chip">📺 Ingen kommende gruppekamp</span>
+            </div>
+          </div>
+          <div class="static-countdown-box">
+            <div class="static-countdown-clock">Slut</div>
+            <div class="static-countdown-note">Alle 72 gruppekampe er passeret.</div>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const now = Date.now();
+    const diffMs = next.kickoffMs - now;
+    const title = getMatchTitle(next.match);
+    const channel = next.schedule.channel;
+    const streaming = next.schedule.streaming;
+    const kickoffText = formatDanishKickoff(next.schedule.kickoff);
+
+    const countdownText = next.isLive
+      ? "LIVE"
+      : formatCountdown(diffMs);
+
+    const note = next.isLive
+      ? "Kampen burde være i gang nu."
+      : `Kickoff ${kickoffText} dansk tid.`;
+
+    target.innerHTML = `
+      <div class="static-next-match-grid">
+        <div>
+          <div class="static-next-kicker">Næste kamp · Kamp ${htmlEscape(next.matchNo)}</div>
+          <h2 class="static-next-title">${htmlEscape(title)}</h2>
+          <div class="static-next-meta">
+            <span>${htmlEscape(kickoffText)} dansk tid</span>
+            <span class="static-tv-chip">📺 ${htmlEscape(channel)}</span>
+            <span class="static-stream-chip">Stream: ${htmlEscape(streaming)}</span>
+          </div>
+        </div>
+        <div class="static-countdown-box">
+          <div class="static-countdown-clock">${htmlEscape(countdownText)}</div>
+          <div class="static-countdown-note">${htmlEscape(note)}</div>
+        </div>
+      </div>
+    `;
+
+    const badge = document.getElementById("nextMatchBadge");
+    if (badge) {
+      badge.textContent = next.isLive ? "Live nu" : "Næste kamp";
+    }
+  }
+function startStaticSchedulePatch() {
+  applyStaticScheduleToData();
+  renderStaticNextMatchCountdown();
+  window.setInterval(renderStaticNextMatchCountdown, 1000);
+}
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startStaticSchedulePatch);
+  } else {
+    startStaticSchedulePatch();
+  }
+})();
+</script>
+<style id="vm2026-dark-text-fix">
+  body {
+    color: #f8fafc !important;
+  }
+
+  main,
+  header,
+  section,
+  article,
+  aside,
+  .panel,
+  .card,
+  .utility-card,
+  .leaderboard,
+  .leaderboard-card,
+  .leaderboard-table,
+  .standings-table,
+  .match-card,
+  .participant-card,
+  .stat-card,
+  .hero,
+  .hero-card,
+  .summary-card,
+  .pcmg-card,
+  .cheer-card,
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td,
+  label {
+    color: #f8fafc !important;
+  }
+
+  .muted,
+  .muted-note,
+  .subtle,
+  .small,
+  .help-text,
+  .meta,
+  .match-meta,
+  .stat-label,
+  .chip-muted {
+    color: rgba(226, 232, 240, 0.72) !important;
+  }
+
+  input,
+  select,
+  textarea {
+    color: #f8fafc !important;
+    background-color: rgba(15, 23, 42, 0.78) !important;
+    border-color: rgba(148, 163, 184, 0.35) !important;
+  }
+
+  option {
+    color: #0f172a !important;
+    background: #ffffff !important;
+  }
+
+  button {
+    color: inherit;
+  }
+</style>
 </body>
 </html>
